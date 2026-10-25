@@ -13,6 +13,9 @@ jobs:
       java-version: '21'
   deploy:
     needs: ci
+    permissions:
+      id-token: write
+      contents: read
     uses: molody1987-lee/reusable-workflows/.github/workflows/deploy-aliyun.yml@main
     with:
       environment: production
