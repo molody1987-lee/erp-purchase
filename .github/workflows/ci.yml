@@ -1,4 +1,4 @@
-name: CI
+name: CI + Deploy
 
 on:
   push:
@@ -11,3 +11,14 @@ jobs:
     uses: molody1987-lee/reusable-workflows/.github/workflows/java-ci.yml@main
     with:
       java-version: '21'
+  deploy:
+    needs: ci
+    uses: molody1987-lee/reusable-workflows/.github/workflows/deploy-aliyun.yml@main
+    with:
+      environment: production
+    secrets:
+      ALIYUN_ROLE_ARN: ${{ secrets.ALIYUN_ROLE_ARN }}
+      ACR_REGISTRY: ${{ secrets.ACR_REGISTRY }}
+      ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+      ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+      ALIYUN_KUBECONFIG: ${{ secrets.ALIYUN_KUBECONFIG }}
