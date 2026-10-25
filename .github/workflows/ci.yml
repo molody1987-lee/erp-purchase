@@ -7,7 +7,7 @@ on:
     branches: [ "test","release/**" ]
 
 jobs:
-  call-java-ci:
+  ci:
     uses: molody1987-lee/reusable-workflows/.github/workflows/java-ci.yml@main
     with:
       java-version: '21'
