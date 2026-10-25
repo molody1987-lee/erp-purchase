@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "test","release/**"]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "test","release/**" ]
 
 jobs:
   call-java-ci:
