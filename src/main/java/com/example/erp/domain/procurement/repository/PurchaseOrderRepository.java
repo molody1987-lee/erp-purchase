@@ -1,6 +1,6 @@
 package com.example.erp.domain.procurement.repository;
 
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 
 import java.util.Optional;
 
@@ -9,12 +9,12 @@ import java.util.Optional;
  */
 public interface PurchaseOrderRepository {
 
-    Optional<PurchaseOrder> findById(Long id);
+    Optional<PurchaseOrderEntity> findById(Long id);
 
     /**
      * 保存采购单（按是否存在 id 决定插入或更新），返回持久化后的主键。
      */
-    Long save(PurchaseOrder purchaseOrder);
+    Long save(PurchaseOrderEntity purchaseOrderEntity);
 
     void delete(Long id);
 }

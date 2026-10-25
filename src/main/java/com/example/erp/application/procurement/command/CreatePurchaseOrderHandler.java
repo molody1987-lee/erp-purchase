@@ -2,7 +2,7 @@ package com.example.erp.application.procurement.command;
 
 import com.example.erp.application.procurement.OrderNoGenerator;
 import com.example.erp.application.procurement.result.CreatePurchaseOrderResult;
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.model.PurchaseOrderItem;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class CreatePurchaseOrderHandler {
                 .map(c -> new PurchaseOrderItem(c.productId(), c.productName(), c.quantity(), c.unitPrice()))
                 .toList();
 
-        PurchaseOrder order = PurchaseOrder.create(
+        PurchaseOrderEntity order = PurchaseOrderEntity.create(
                 orderNoGenerator.next(), command.supplierName(), items);
 
         Long id = repository.save(order);

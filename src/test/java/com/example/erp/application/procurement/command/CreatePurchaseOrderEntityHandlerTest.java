@@ -2,7 +2,7 @@ package com.example.erp.application.procurement.command;
 
 import com.example.erp.application.procurement.OrderNoGenerator;
 import com.example.erp.application.procurement.result.CreatePurchaseOrderResult;
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CreatePurchaseOrderHandlerTest {
+class CreatePurchaseOrderEntityHandlerTest {
 
     @Mock
     private PurchaseOrderRepository repository;
@@ -33,7 +33,7 @@ class CreatePurchaseOrderHandlerTest {
     @Test
     void 创建采购单应保存并返回结果() {
         when(orderNoGenerator.next()).thenReturn("PO1001");
-        when(repository.save(any(PurchaseOrder.class))).thenReturn(100L);
+        when(repository.save(any(PurchaseOrderEntity.class))).thenReturn(100L);
 
         CreatePurchaseOrderResult result = handler.handle(new CreatePurchaseOrderCommand(
                 "供应商A",
@@ -43,6 +43,6 @@ class CreatePurchaseOrderHandlerTest {
         assertThat(result.orderNo()).isEqualTo("PO1001");
         assertThat(result.status()).isEqualTo("DRAFT");
 
-        verify(repository).save(any(PurchaseOrder.class));
+        verify(repository).save(any(PurchaseOrderEntity.class));
     }
 }

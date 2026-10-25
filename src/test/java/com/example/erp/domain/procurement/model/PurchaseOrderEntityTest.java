@@ -9,16 +9,16 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class PurchaseOrderTest {
+class PurchaseOrderEntityTest {
 
-    private PurchaseOrder draftOrder() {
-        return PurchaseOrder.create("PO001", "供应商A",
+    private PurchaseOrderEntity draftOrder() {
+        return PurchaseOrderEntity.create("PO001", "供应商A",
                 List.of(new PurchaseOrderItem(1L, "商品A", 2, new BigDecimal("10.00"))));
     }
 
     @Test
     void 创建采购单应为草稿状态() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
 
         assertThat(order.getStatus()).isEqualTo(PurchaseOrderStatus.DRAFT);
         assertThat(order.getItems()).hasSize(1);
@@ -27,7 +27,7 @@ class PurchaseOrderTest {
 
     @Test
     void 草稿采购单可以提交() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
 
         order.submit();
 
@@ -36,7 +36,7 @@ class PurchaseOrderTest {
 
     @Test
     void 已提交采购单可以取消() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
         order.submit();
 
         order.cancel();
@@ -46,7 +46,7 @@ class PurchaseOrderTest {
 
     @Test
     void 已提交采购单不能修改() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
         order.submit();
 
         assertThatThrownBy(() -> order.modify("供应商B",
@@ -56,7 +56,7 @@ class PurchaseOrderTest {
 
     @Test
     void 已取消采购单不能提交() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
         order.cancel();
 
         assertThatThrownBy(order::submit)
@@ -65,7 +65,7 @@ class PurchaseOrderTest {
 
     @Test
     void 已取消采购单不能重复取消() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
         order.cancel();
 
         assertThatThrownBy(order::cancel)
@@ -74,7 +74,7 @@ class PurchaseOrderTest {
 
     @Test
     void 已提交采购单不能删除() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
         order.submit();
 
         assertThatThrownBy(order::delete)
@@ -83,14 +83,14 @@ class PurchaseOrderTest {
 
     @Test
     void 草稿采购单可以删除() {
-        PurchaseOrder order = draftOrder();
+        PurchaseOrderEntity order = draftOrder();
 
         order.delete();
     }
 
     @Test
     void 空明细采购单不能创建() {
-        assertThatThrownBy(() -> PurchaseOrder.create("PO002", "供应商A", List.of()))
+        assertThatThrownBy(() -> PurchaseOrderEntity.create("PO002", "供应商A", List.of()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * 2. 通过业务行为（create/modify/submit/cancel/delete）改变状态
  * 3. 保护状态流转规则
  */
-public class PurchaseOrder {
+public class PurchaseOrderEntity {
 
     private Long id;
     private String orderNo;
@@ -27,13 +27,13 @@ public class PurchaseOrder {
     private LocalDateTime updatedAt;
     private Integer version;
 
-    protected PurchaseOrder() {
+    protected PurchaseOrderEntity() {
     }
 
     /**
      * 创建采购单，初始状态为草稿。
      */
-    public static PurchaseOrder create(String orderNo, String supplierName, List<PurchaseOrderItem> items) {
+    public static PurchaseOrderEntity create(String orderNo, String supplierName, List<PurchaseOrderItem> items) {
         if (orderNo == null || orderNo.isBlank()) {
             throw new IllegalArgumentException("采购单号不能为空");
         }
@@ -41,7 +41,7 @@ public class PurchaseOrder {
             throw new IllegalArgumentException("供应商不能为空");
         }
 
-        PurchaseOrder order = new PurchaseOrder();
+        PurchaseOrderEntity order = new PurchaseOrderEntity();
         order.orderNo = orderNo;
         order.supplierName = supplierName;
         order.replaceItems(items);
@@ -55,10 +55,10 @@ public class PurchaseOrder {
     /**
      * 从持久化数据重建聚合（仅限仓储层调用）。
      */
-    public static PurchaseOrder reconstruct(Long id, String orderNo, String supplierName,
-                                            PurchaseOrderStatus status, List<PurchaseOrderItem> items,
-                                            LocalDateTime createdAt, LocalDateTime updatedAt, Integer version) {
-        PurchaseOrder order = new PurchaseOrder();
+    public static PurchaseOrderEntity reconstruct(Long id, String orderNo, String supplierName,
+                                                  PurchaseOrderStatus status, List<PurchaseOrderItem> items,
+                                                  LocalDateTime createdAt, LocalDateTime updatedAt, Integer version) {
+        PurchaseOrderEntity order = new PurchaseOrderEntity();
         order.id = id;
         order.orderNo = orderNo;
         order.supplierName = supplierName;

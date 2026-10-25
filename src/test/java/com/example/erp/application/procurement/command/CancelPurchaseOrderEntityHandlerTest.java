@@ -1,6 +1,6 @@
 package com.example.erp.application.procurement.command;
 
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.model.PurchaseOrderItem;
 import com.example.erp.domain.procurement.model.PurchaseOrderStatus;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CancelPurchaseOrderHandlerTest {
+class CancelPurchaseOrderEntityHandlerTest {
 
     @Mock
     private PurchaseOrderRepository repository;
@@ -31,7 +31,7 @@ class CancelPurchaseOrderHandlerTest {
 
     @Test
     void 已提交采购单可以取消() {
-        PurchaseOrder submitted = PurchaseOrder.reconstruct(
+        PurchaseOrderEntity submitted = PurchaseOrderEntity.reconstruct(
                 1L, "PO1001", "供应商A", PurchaseOrderStatus.SUBMITTED,
                 List.of(new PurchaseOrderItem(1L, "商品A", 1, BigDecimal.TEN)),
                 LocalDateTime.now(), LocalDateTime.now(), 0);
@@ -39,7 +39,7 @@ class CancelPurchaseOrderHandlerTest {
 
         handler.handle(new CancelPurchaseOrderCommand(1L));
 
-        ArgumentCaptor<PurchaseOrder> captor = ArgumentCaptor.forClass(PurchaseOrder.class);
+        ArgumentCaptor<PurchaseOrderEntity> captor = ArgumentCaptor.forClass(PurchaseOrderEntity.class);
         verify(repository).save(captor.capture());
         assertThat(captor.getValue().getStatus()).isEqualTo(PurchaseOrderStatus.CANCELLED);
     }

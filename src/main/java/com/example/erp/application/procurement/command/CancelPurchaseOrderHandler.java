@@ -1,7 +1,7 @@
 package com.example.erp.application.procurement.command;
 
 import com.example.erp.domain.procurement.exception.PurchaseOrderNotFoundException;
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class CancelPurchaseOrderHandler {
 
     @Transactional
     public void handle(CancelPurchaseOrderCommand command) {
-        PurchaseOrder order = repository.findById(command.id())
+        PurchaseOrderEntity order = repository.findById(command.id())
                 .orElseThrow(() -> new PurchaseOrderNotFoundException(command.id()));
 
         order.cancel();

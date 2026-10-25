@@ -1,7 +1,7 @@
 package com.example.erp.infrastructure.procurement.persistence.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.model.PurchaseOrderItem;
 import com.example.erp.domain.procurement.model.PurchaseOrderStatus;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
@@ -25,7 +25,7 @@ public class PurchaseOrderRepositoryImpl implements PurchaseOrderRepository {
     private final PurchaseOrderPersistenceConverter converter;
 
     @Override
-    public Optional<PurchaseOrder> findById(Long id) {
+    public Optional<PurchaseOrderEntity> findById(Long id) {
         PurchaseOrderPO po = orderMapper.selectById(id);
         if (po == null) {
             return Optional.empty();
@@ -39,7 +39,7 @@ public class PurchaseOrderRepositoryImpl implements PurchaseOrderRepository {
                 .map(this::toDomainItem)
                 .toList();
 
-        PurchaseOrder order = PurchaseOrder.reconstruct(
+        PurchaseOrderEntity order = PurchaseOrderEntity.reconstruct(
                 po.getId(),
                 po.getOrderNo(),
                 po.getSupplierName(),
@@ -53,8 +53,8 @@ public class PurchaseOrderRepositoryImpl implements PurchaseOrderRepository {
     }
 
     @Override
-    public Long save(PurchaseOrder purchaseOrder) {
-        PurchaseOrderPO po = converter.toPO(purchaseOrder);
+    public Long save(PurchaseOrderEntity purchaseOrderEntity) {
+        PurchaseOrderPO po = converter.toPO(purchaseOrderEntity);
         if (po.getId() == null) {
             orderMapper.insert(po);
         } else {
@@ -67,7 +67,7 @@ public class PurchaseOrderRepositoryImpl implements PurchaseOrderRepository {
         itemMapper.delete(new LambdaQueryWrapper<PurchaseOrderItemPO>()
                 .eq(PurchaseOrderItemPO::getOrderId, orderId));
 
-        for (PurchaseOrderItem item : purchaseOrder.getItems()) {
+        for (PurchaseOrderItem item : purchaseOrderEntity.getItems()) {
             PurchaseOrderItemPO itemPO = new PurchaseOrderItemPO();
             itemPO.setOrderId(orderId);
             itemPO.setProductId(item.getProductId());

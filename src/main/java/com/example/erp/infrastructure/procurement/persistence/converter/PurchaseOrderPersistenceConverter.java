@@ -1,6 +1,6 @@
 package com.example.erp.infrastructure.procurement.persistence.converter;
 
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.infrastructure.procurement.persistence.po.PurchaseOrderPO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +13,5 @@ import org.mapstruct.Mapping;
 public interface PurchaseOrderPersistenceConverter {
 
     @Mapping(target = "deleted", ignore = true)
-    PurchaseOrderPO toPO(PurchaseOrder order);
+    PurchaseOrderPO toPO(PurchaseOrderEntity order);
 }

@@ -1,7 +1,7 @@
 package com.example.erp.application.procurement.command;
 
 import com.example.erp.domain.procurement.exception.PurchaseOrderNotFoundException;
-import com.example.erp.domain.procurement.model.PurchaseOrder;
+import com.example.erp.domain.procurement.model.PurchaseOrderEntity;
 import com.example.erp.domain.procurement.model.PurchaseOrderItem;
 import com.example.erp.domain.procurement.repository.PurchaseOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class ModifyPurchaseOrderHandler {
 
     @Transactional
     public void handle(ModifyPurchaseOrderCommand command) {
-        PurchaseOrder order = repository.findById(command.id())
+        PurchaseOrderEntity order = repository.findById(command.id())
                 .orElseThrow(() -> new PurchaseOrderNotFoundException(command.id()));
 
         List<PurchaseOrderItem> items = command.items().stream()
