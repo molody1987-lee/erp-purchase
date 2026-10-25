@@ -1,0 +1,13 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  call-java-ci:
+    uses: molody1987-lee/reusable-workflows/.github/workflows/java-ci.yml@main
+    with:
+      java-version: '21'
