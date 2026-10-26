@@ -2,3 +2,5 @@ target/
 .idea/
 .git/
 .gitignore
+*.iml
+.DS_Store
