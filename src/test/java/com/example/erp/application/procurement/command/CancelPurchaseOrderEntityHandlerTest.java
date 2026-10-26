@@ -31,6 +31,7 @@ class CancelPurchaseOrderEntityHandlerTest {
 
     @Test
     void 已提交采购单可以取消() {
+
         PurchaseOrderEntity submitted = PurchaseOrderEntity.reconstruct(
                 1L, "PO1001", "供应商A", PurchaseOrderStatus.SUBMITTED,
                 List.of(new PurchaseOrderItem(1L, "商品A", 1, BigDecimal.TEN)),
