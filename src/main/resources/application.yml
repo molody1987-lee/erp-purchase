@@ -9,6 +9,10 @@ spring:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
+    # HikariCP：启动时强制验证 DB 连接，连接失败则应用启动失败
+    hikari:
+      initialization-fail-timeout: 30000
+      connection-timeout: 10000
 
 
 mybatis-plus:
@@ -32,6 +36,13 @@ management:
       show-details: when-authorized
       probes:
         enabled: true
+      # 关键：readiness 健康组必须包含 db，这样 DB 挂了 Pod 会被摘出流量
+      # liveness 不能包含 db，否则 DB 抖动会导致容器雪崩重启
+      group:
+        readiness:
+          include: "readinessState,db"
+        liveness:
+          include: "livenessState"
   health:
     defaults:
       enabled: true
