@@ -20,3 +20,22 @@ mybatis-plus:
       logic-delete-field: deleted
       logic-delete-value: 1
       logic-not-delete-value: 0
+
+# Spring Boot Actuator —— K8s 健康检查用
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: when-authorized
+      probes:
+        enabled: true
+  health:
+    defaults:
+      enabled: true
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
