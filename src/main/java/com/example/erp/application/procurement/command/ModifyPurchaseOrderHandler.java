@@ -20,7 +20,6 @@ public class ModifyPurchaseOrderHandler {
     public void handle(ModifyPurchaseOrderCommand command) {
         PurchaseOrderEntity order = repository.findById(command.id())
                 .orElseThrow(() -> new PurchaseOrderNotFoundException(command.id()));
-
         List<PurchaseOrderItem> items = command.items().stream()
                 .map(c -> new PurchaseOrderItem(c.productId(), c.productName(), c.quantity(), c.unitPrice()))
                 .toList();
