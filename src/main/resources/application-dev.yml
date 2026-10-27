@@ -2,4 +2,4 @@ spring:
   datasource:
     url: JDBC:mysql://localhost:3306/erp_purchase?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: erp_purchase_write
-    password: erp_purchase_write@Pass123
+    password: erp_purchase_write@Pass12
