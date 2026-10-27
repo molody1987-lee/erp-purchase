@@ -6,9 +6,10 @@ spring:
     name: erp-purchase
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rm-bp1p50tfzk1brnx71.mysql.rds.aliyuncs.com:3306/erp_purchase?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
-    username: erp_purchase_write
-    password: erp_purchase_write@Pass123
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/erp_purchase?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+
 
 mybatis-plus:
   configuration:
