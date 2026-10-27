@@ -19,6 +19,7 @@ jobs:
     uses: molody1987-lee/reusable-workflows/.github/workflows/deploy-aliyun.yml@main
     with:
       environment: production
+      spring-profiles-active: ${{ vars.SPRING_PROFILES_ACTIVE }}
     secrets:
       ALIYUN_ROLE_ARN: ${{ secrets.ALIYUN_ROLE_ARN }}
       ACR_REGISTRY: ${{ secrets.ACR_REGISTRY }}
