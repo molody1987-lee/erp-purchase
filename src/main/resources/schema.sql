@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS t_purchase_order (
     deleted       TINYINT DEFAULT 0,
     UNIQUE KEY uk_order_no (order_no)
 );
-
 CREATE TABLE IF NOT EXISTS t_purchase_order_item (
     id           BIGINT AUTO_INCREMENT PRIMARY KEY,
     order_id     BIGINT NOT NULL,
